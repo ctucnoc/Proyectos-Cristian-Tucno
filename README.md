@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SysFacturadorApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
@@ -25,3 +26,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+=======
+# Proyectos-Cristian-Tucno
+proyectos desarrollados por cristian tucno conde
+>>>>>>> b91b7f532d359e8cf2a6a230411ab3f5e343fca4
