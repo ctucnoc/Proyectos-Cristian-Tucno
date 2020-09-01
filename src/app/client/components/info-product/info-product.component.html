@@ -1,0 +1,21 @@
+<span>{{imgProductForm.productForm.controls['product_name'].value}}</span>
+<p>{{imgProductForm.productForm.controls['product_id'].value}}</p>
+
+<input type="file" value="Seleccione una imagen" (change)="processFile($event)">
+<button (click)="onUpload()">Guardar</button>
+<table border="1">
+    <thead>
+        <th>PRODUCTO</th>
+        <th>TIPO DE IMAGEN</th>
+        <th>TAMAÑO DE LA IMAGEN</th>
+        <th>LINK</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

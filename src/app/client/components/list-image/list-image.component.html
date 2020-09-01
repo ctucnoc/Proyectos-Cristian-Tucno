@@ -1,0 +1,86 @@
+<form (submit)="onSubmit()" enctype="multipart/form-data">
+    <div>
+        <label for="imagen"></label>
+        <input type="file" class="upload" id="imagen" #imagenInputFile (change)="onFileChange($event)"
+            accept="image/png, image/jpeg, image/gif">
+    </div>
+    <div *ngIf="imagen" class="mt-5">
+        <div class="imagen">
+            <img class="image-thumbnail" style="max-width: 100px" [src]="imagenMin">
+        </div>
+    </div>
+
+    <div>
+        <button mat-button type="submit" class="btn btn-outline-success" [disabled]="!imagen" color="primary">
+            <mat-icon>cloud_upload</mat-icon>
+        </button>
+    </div>
+</form>
+
+<!-- ================== -->
+<!-- TABLA DE PRODUCTOS -->
+<!-- ================== -->
+<div class="row">
+    <div class="col">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="listData" matSort>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="CÓDIGO IMAGEN">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>CÓDIGO IMAGEN</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.productimg_id}}</mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="NOMBRE IMAGEN">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE IMAGEN</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.productimg_name}}</mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="TAMAÑO IMAGEN">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>TAMAÑO IMAGEN</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.productimg_size}}</mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="TIPO IMAGEN">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>TIPO IMAGEN</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.productimg_type}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="SELECCIONE">
+                    <mat-header-cell *matHeaderCellDef>SELECCIONE</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button type="button" mat-icon-button>
+                            <mat-icon>launch</mat-icon>
+                        </button>
+                        <button type="button" mat-icon-button (click)="onDelete(row.productimg_id)">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="loading">
+                    <mat-footer-cell *matFooterCellDef colspan="5">
+                        Cargar Data...
+                    </mat-footer-cell>
+                </ng-container>
+                <ng-container matColumnDef="noData">
+                    <mat-footer-cell *matFooterCellDef colspan="5">
+                        Ningun registro encontrado
+                    </mat-footer-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+                <mat-footer-row *matFooterRowDef="['noData']"
+                    [ngClass]="{'hide':listData!=null}">
+                </mat-footer-row>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+            <!-- ================== -->
+            <!-- FIN TABLA PRODUCTO -->
+            <!-- ================== -->
+        </div>
+    </div>
+</div>

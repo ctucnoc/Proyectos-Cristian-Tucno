@@ -1,0 +1,53 @@
+<mat-toolbar>
+    <span>{{itrequestForm.form.controls['itrequest_id'].value?"Buscar Producto : Modificar":"Buscar Producto"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="itrequestForm.form" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+        <mat-card-header *ngIf="isFlat">
+            <mat-card-subtitle>stock actual : {{stock_actual}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="hidden" formControlName="itentry_product_id">
+                        <input matInput placeholder="Producto" formControlName="product_name"
+                            [matAutocomplete]="auto" (keyup)="onFindByProductName()">
+                        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onClear()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let dato of listData" (click)=onSelect(dato)>
+                                {{dato.bProduct.product_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error
+                            *ngIf="itrequestForm.form.controls['product_name'].hasError('required')">
+                            Ingrese un producto <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Ingrese Cantidad Solicitada"
+                            formControlName="product_quantity">
+                        <mat-error
+                            *ngIf="itrequestForm.form.controls['product_quantity'].hasError('required')">
+                            Ingrese Cantidad Solicitada <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="data"
+                [disabled]="itrequestForm.form.invalid">Enviar</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

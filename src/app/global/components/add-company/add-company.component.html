@@ -1,0 +1,84 @@
+<mat-toolbar>
+  <span>{{companyForm.form.controls['multi_company_id'].value?"Modificar Empresa":"Registrar Nueva Empresa"}}</span>
+  <span class="fill-remaining-space"></span>
+  <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+    <mat-icon>clear</mat-icon>
+  </button>
+</mat-toolbar>
+
+<form [formGroup]="companyForm.form" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <input type="hidden" formControlName="multi_company_id">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Razón Social" formControlName="multi_company_name">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="RUC" formControlName="multi_company_ruc">
+            <mat-error *ngIf="companyForm.form.controls['multi_company_ruc'].hasError('required')">
+              El RUC es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Telefono" formControlName="multi_company_phone">
+            <mat-error *ngIf="companyForm.form.controls['multi_company_phone'].hasError('required')">
+              Telefono es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <textarea matInput placeholder="Dirección" formControlName="multi_company_address"></textarea>
+            <mat-error *ngIf="companyForm.form.controls['multi_company_address'].hasError('required')">
+              La Dirección es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Representante" formControlName="multi_company_representative">
+            <mat-error *ngIf="companyForm.form.controls['multi_company_representative'].hasError('required')">
+              City is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Tipo de Empresa" formControlName="multi_company_type">
+              <mat-option value="S">PRINCIPAL</mat-option>
+              <mat-option value="N">SUCURSAL</mat-option>
+            </mat-select>
+            <mat-error *ngIf="companyForm.form.controls['multi_company_type'].hasError('required')">
+              El tipo de Empresa es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input type="email" matInput placeholder="Correo Electronico" formControlName="multi_company_email">
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [mat-dialog-close]="true" [disabled]="companyForm.form.invalid">Guardar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -1,0 +1,12 @@
+<app-header-private style="height: 10%;" (toggleSideBarForMe)="sideBarToggler($event)">
+</app-header-private>
+
+<mat-drawer-container style="height: 85%;">
+    <mat-drawer mode="side" [opened]="sideBarOpen">
+        <app-sidebar></app-sidebar>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+<app-footerprivado style="height: 5%;"></app-footerprivado>

@@ -1,0 +1,50 @@
+<mat-toolbar>
+    <span>{{productForm.form.controls['product_id'].value?"Modificar Producto":"Registrar Nueva Producto"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+
+<form [formGroup]="productForm.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="1" rowHeight="380px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="product_id">
+                <mat-form-field>
+                    <input formControlName="product_name" matInput placeholder="Producto del nombre*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="product_name_summary" matInput placeholder="Producto del nombre resumen">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <div>
+                    <mat-form-field>
+                        <input formControlName="category_id" matInput placeholder="Categoria*">
+                    </mat-form-field>
+                    <button type="button" style="margin-left: 10px;" mat-raised-button (click)="onLoadSearchCategory()">...</button>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="product_control_expiration">Control fecha de vencimiento
+                    </mat-checkbox>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="product_control_lot">Control de Lote</mat-checkbox>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="product_print_label">Imprimir Etiqueta</mat-checkbox>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="product_refrigeration">Nesecita Refrieración</mat-checkbox>
+                </div>
+                <div class="button-row" style="width: 100%;">
+                    <button style="width: 46%;" mat-raised-button color="primary" type="submit"
+                        [disabled]="productForm.form.invalid">Registrar</button>
+                    <button type="button" style="width: 46%;" mat-raised-button color="warn"
+                        [disabled]="productForm.form.invalid" (click)="onClear()">Limpiar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

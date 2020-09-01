@@ -1,0 +1,43 @@
+<form [formGroup]="warehouseCompanyForm.form" class="normal-form">
+    <button mat-raised-button (click)="onCreate()" [disabled]="listData==null">
+        <mat-icon>add</mat-icon>Nuevo
+    </button>
+    <mat-form-field class="search-form-field">
+        <input type="text" placeholder="Ingrese una empresa" matInput formControlName="multi_company_name"
+            [matAutocomplete]="auto" (keyup)="onSearchCompany()">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let dato of datos" (click)="onSelect(dato)">
+                {{dato.multi_company_name}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form>
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="listData" matSort>
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="USUARIO">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>USUARIO</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.user.user_name}}</mat-cell>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="CUENTA">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>CUENTA</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.user.user_id}}</mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="SELECCIONE">
+        <mat-header-cell *matHeaderCellDef>SELECCIONE</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="onDelete(row);"><mat-icon>delete_outline</mat-icon></button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+  </div>

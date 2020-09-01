@@ -1,0 +1,44 @@
+<!-- ================== -->
+<!-- TABLA DE PRODUCTOS -->
+<!-- ================== -->
+<div class="row">
+    <div class="col">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="listData" matSort>
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="CÓDIGO ALMACÉN">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>CÓDIGO ALMACÉN</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.bWarehouse.warehouse_id}}</mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="ALMACEN">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ALMACEN</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.bWarehouse.warehouse_description}}</mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="TIPO ALMACÉM">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>TIPO ALMACÉM</mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{row.bWarehouse.warehouse_type | converCharToString:'DISTRIBUCIÓN':'SUB ALMACÉN'}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="SELECCIONE">
+                    <mat-header-cell *matHeaderCellDef>SELECCIONE</mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                        <button type="button" mat-icon-button (click)="onRequestProductWarehouse(row.bWarehouse.warehouse_id)">
+                            <mat-icon>launch</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+            <!-- ================== -->
+            <!-- FIN TABLA PRODUCTO -->
+            <!-- ================== -->
+        </div>
+    </div>
+</div>

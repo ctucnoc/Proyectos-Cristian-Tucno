@@ -1,0 +1,64 @@
+<mat-toolbar>
+    <span>{{providerForm.form.controls['provider_client_id'].value?"Modificar Proveedor/Cliente":"Registrar Nueva Proveedor/Cliente"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="providerForm.form" class="normal-form" (submit)="onCreate()">
+    <mat-grid-list cols="1" rowHeight="600px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="provider_client_id">
+                <mat-form-field>
+                    <input formControlName="provider_client_name" matInput placeholder="Nombre Proveedor/Cliente*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tipo Documento</mat-label>
+                    <select matNativeControl formControlName="provider_client_document_type">
+                        <option value="RUC">RUC</option>
+                        <option value="DNI">DNI</option>
+                        <option value="CARNET EXTRANJERIA">CARNET EXTRANJERIA</option>
+                    </select>
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="prodiver_client_document_number" matInput placeholder="Nro. Documento*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tipo de Cliente</mat-label>
+                    <select matNativeControl formControlName="provider_client_type">
+                        <option value="C">Cliente</option>
+                        <option value="P">Proveedor</option>
+                        <option value="M">Proveedor/Cliente</option>
+                    </select>
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="provider_client_address" matInput placeholder="Dirección*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="provider_client_phone" matInput placeholder="Telefono*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="prodiver_client_email" matInput placeholder="Email*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="prodiver_client_web" matInput placeholder="Pagina Web*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <div class="button-row" style="width: 100%;">
+                    <button style="width: 46%;" mat-raised-button color="primary" type="submit"
+                        [disabled]="providerForm.form.invalid">Registrar</button>
+                    <button type="button" style="width: 46%;" mat-raised-button color="warn"
+                        [disabled]="providerForm.form.invalid">Limpiar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

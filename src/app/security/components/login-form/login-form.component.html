@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-title style="color: primary">Inicio de Sesión</mat-card-title>
+    <mat-card-content>
+        <form novalidate [formGroup]="userLogin" (ngSubmit)="onLogin()">
+            <p>
+                <mat-form-field>
+                    <input style="color: orange;" type="text" id="text" matInput placeholder="Usuario" formControlName="user_id"
+                        (keydown.enter)="loadCompany($event)" autofocus required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <input style="color: orange;" type="password" matInput placeholder="Contraseña"
+                        formControlName="user_password" required>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field>
+                    <mat-label>Seleccione</mat-label>
+                    <mat-select style="color: orange;" formControlName="multi_company_id" required>
+                        <mat-option style="color: orange;" *ngFor="let MultiCompany of companies"
+                            [value]="MultiCompany.multi_company_id">
+                            {{MultiCompany.multi_company_name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </p>
+            <p *ngIf="error" class="error">
+                {{ error }}
+            </p>
+            <div class="button">
+                <button type="submit" mat-button color="primary" [disabled]="userLogin.invalid">Ingresar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,83 @@
+<mat-card class="shipping-card">
+    <mat-card-header>
+        <mat-card-title>Atender Solicitud de los Sub-Almacenes</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <mat-select placeholder="Seleccione Almacén a Consultar" formControlName="warehouse_id">
+                            <mat-option *ngFor="let bWarehouseCompany of listWarehouse"
+                                [value]="bWarehouseCompany.bWarehouse.warehouse_id">
+                                {{ bWarehouseCompany.bWarehouse.warehouse_description }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="form.controls['warehouse_id'].hasError('required')">
+                            Seleccione un Almacén <strong>obligatorio</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <button type="submit" mat-flat-button color="primary" [disabled]="form.invalid">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- ================== -->
+        <!-- TABLA DE PRODUCTOS -->
+        <!-- ================== -->
+        <div class="row">
+            <div class="col">
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="listData" matSort>
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="NRO. DE SOLICITUD" style="width: 10%;">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>NRO. DE SOLICITUD</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.request_id}}</mat-cell>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="TIPO DE SOLICITUD">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>TIPO DE SOLICITUD</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.request_type | converCharToString:'NORMAL':'URGENTE'}}
+                            </mat-cell>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="CONDICIÓN">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>CONDICIÓN</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                {{row.request_condition | converCharToString:'PENDIENTE':'ATENDIDO'}}</mat-cell>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="ALMACÉN SOLICITANTE">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>ALMACÉN SOLICITANTE</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                {{row.warehouse_destination_description}}</mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="VER DETALLE">
+                            <mat-header-cell *matHeaderCellDef>VER DETALLE</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button type="button" mat-icon-button (click)="onItAttendRequest(row.request_id)">
+                                    <mat-icon>launch</mat-icon>
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons>
+                    </mat-paginator>
+                    <!-- ================== -->
+                    <!-- FIN TABLA PRODUCTO -->
+                    <!-- ================== -->
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

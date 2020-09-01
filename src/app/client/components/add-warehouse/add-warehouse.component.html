@@ -1,0 +1,47 @@
+<mat-toolbar>
+    <span>{{warehouseFrom.form.controls['warehouse_id'].value?"Modificar Almacén":"Registrar Nueva Almacén"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="warehouseFrom.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="1" rowHeight="300px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="warehouse_id">
+                <input type="hidden" formControlName="configure_warehouse_id">
+                <mat-form-field>
+                    <input formControlName="warehouse_description" matInput placeholder="Nombre del Almacén*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tipo de Almacén</mat-label>
+                    <select matNativeControl formControlName="warehouse_type">
+                        <option value="S">DISTRIBUCIÓN</option>
+                        <option value="N">SUB ALMACÉN</option>
+                    </select>
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="configure_warehouse_dispensary">Utilizar Almacén para dispensario
+                    </mat-checkbox>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="configure_warehouse_check_stock">Realizar el control de stock
+                    </mat-checkbox>
+                </div>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="configure_warehouse_store_online">Utilizar Almacén para tienda online
+                    </mat-checkbox>
+                </div>
+                <div class="button-row" style="width: 100%;">
+                    <button style="width: 46%;" mat-raised-button color="primary" type="submit"
+                        [disabled]="warehouseFrom.form.invalid">Registrar</button>
+                    <button type="button" style="width: 46%;" mat-raised-button color="warn"
+                        [disabled]="warehouseFrom.form.invalid">Limpiar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

@@ -1,0 +1,26 @@
+<mat-toolbar>
+    <span>{{categoryForm.form.controls['$key'].value?"Modificar Categoria":"Registrar Nueva Categoria"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="categoryForm.form" class="normal-form" (submit)="onCreate()">
+    <mat-grid-list cols="1" rowHeight="250px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="category_id">
+                <mat-form-field>
+                    <input formControlName="category_description" matInput placeholder="Nombre del Almacén*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <div class="button-row" style="width: 100%;">
+                    <button style="width: 46%;" mat-raised-button color="primary" type="submit"
+                        [disabled]="categoryForm.form.invalid">Registrar</button>
+                    <button type="button" style="width: 46%;" mat-raised-button color="warn"
+                        [disabled]="categoryForm.form.invalid">Limpiar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

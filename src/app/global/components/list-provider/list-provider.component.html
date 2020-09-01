@@ -1,0 +1,58 @@
+<div class="search-div">
+    <button mat-raised-button (click)="onCreate()">
+        <mat-icon>add</mat-icon>Nuevo
+    </button>
+    <mat-form-field class="search-form-field">
+        <input matInput [(ngModel)]="searchKey" placeholder="Buscar" autocomplete="off"
+            (keydown.enter)="onSearch($event)">
+        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+    <mat-table [dataSource]="listData" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="NOMBRE Y/O RAZON SOCIAL">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>NOMBRE Y/O RAZON SOCIAL</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.provider_client_name}}</mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="TIPO DE DOCUMENTO">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>TIPO DE DOCUMENTO</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.provider_client_document_type}}</mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="NRO. DOCUMENTO">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>NRO. DOCUMENTO</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.prodiver_client_document_number}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="SELECCIONE">
+            <mat-header-cell *matHeaderCellDef>SELECCIONE</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-icon-button (click)="onUpdate(row);"><mat-icon>launch</mat-icon></button>
+                <button mat-icon-button (click)="onDelete(row);"><mat-icon>delete_outline</mat-icon></button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+            <mat-footer-cell *matFooterCellDef colspan="4">
+                Cargar Data...
+            </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-footer-cell *matFooterCellDef colspan="4">
+                Ningun registro encontrado
+            </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':listData!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(listData!=null && listData.data.length==0)}">
+        </mat-footer-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

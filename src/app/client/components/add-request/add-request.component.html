@@ -1,0 +1,82 @@
+<form [formGroup]="requestFormService.formRequest" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>{{requestFormService.formRequest.controls['request_id'].value?"Modificar Solictud de productos al almacén de distribución":"Registrar Nueva Solictud de productos al almacén de distribución"}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Seleccione Almacén Destino" formControlName="warehouse_destination">
+              <mat-option *ngFor="let bWarehouseCompany of list_warehouse_destination"
+                [value]="bWarehouseCompany.bWarehouse.warehouse_id">
+                {{ bWarehouseCompany.bWarehouse.warehouse_description }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="requestFormService.formRequest.controls['warehouse_destination'].hasError('required')">
+              almacén destino es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Seleccione Tipo de Solicitud" formControlName="request_type">
+              <mat-option value="S">URGENTE</mat-option>
+              <mat-option value="N">NORMAL</mat-option>
+            </mat-select>
+            <mat-error *ngIf="requestFormService.formRequest.controls['request_type'].hasError('required')">
+              tipo de solicitud es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button mat-button type="button" (click)="onCreate()">
+            + Agregar Productos
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="isExist">
+        <div class="col">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="listData" matSort>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="PRODUCTO">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>PRODUCTO</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.product_name}}</mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="CANTIDAD SOLICITADA">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>CANTIDAD SOLICITADA</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.itrequest_quantity}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="SELECCIONE">
+                <mat-header-cell *matHeaderCellDef>SELECCIONE</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button type="button" mat-icon-button>
+                    <mat-icon>launch</mat-icon>
+                  </button>
+                  <button type="button" mat-icon-button>
+                    <mat-icon (click)="onDelete(row)">delete_outline</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="requestFormService.formRequest.invalid">Guardar</button>
+      <button mat-raised-button color="primary" type="button" (click)="onRegresar()">Regresar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

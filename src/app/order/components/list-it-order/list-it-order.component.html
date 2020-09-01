@@ -1,0 +1,43 @@
+<div class="contenedor">
+    <mat-card class="tarjeta">
+        <mat-card-header>
+            <div mat-card-avatar><img mat-card-image src="../../../../favicon.ico" class="circular"></div>
+            <mat-card-title>{{bClient.client_name}} {{bClient.client_lastName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Teléfono:{{bClient.client_phone}}</p>
+            <p>Email:{{bClient.client_email}}</p>
+            <p>Direccion:{{bClient.client_address}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>
+<table mat-table [dataSource]="listData" class="mat-elevation-z8">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="PRODUCTO">
+        <th mat-header-cell *matHeaderCellDef> PRODUCTO </th>
+        <td mat-cell *matCellDef="let element"> {{element.bProduct.product_name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="PRECIO">
+        <th mat-header-cell *matHeaderCellDef> PRECIO </th>
+        <td mat-cell *matCellDef="let element"> {{element.itorden_quantity | currency:'S/. '}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="CANTIDAD">
+        <th mat-header-cell *matHeaderCellDef> CANTIDAD </th>
+        <td mat-cell *matCellDef="let element"> {{element.itorden_quantity}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="SUB TOTAL">
+        <th mat-header-cell *matHeaderCellDef> SUB TOTAL </th>
+        <td mat-cell *matCellDef="let element"> {{element.itorden_quantity*element.itorden_quantity | currency:'S/. '}}
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

@@ -1,0 +1,125 @@
+<form [formGroup]="entryProductForm.form" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="shipping-card">
+    <mat-card-header>
+      <mat-card-title>Ingreso de Productos al Almacén</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Tipo Documento Entrada" formControlName="entry_product_document_type">
+            <mat-error *ngIf="entryProductForm.form.controls['entry_product_document_type'].hasError('required')">
+              Documento de entrada es<strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nro. Documento de Entrada" formControlName="entry_product_document_number">
+            <mat-error *ngIf="entryProductForm.form.controls['entry_product_document_number'].hasError('required')">
+              Nro de documento es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Tipo Entrada" formControlName="entry_product_type">
+              <mat-option value="S">TOTAL</mat-option>
+              <mat-option value="N">PARCIAL</mat-option>
+            </mat-select>
+            <mat-error *ngIf="entryProductForm.form.controls['entry_product_type'].hasError('required')">
+              Tipo de entrada es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Seleccione Almacén de Ingreso" formControlName="warehouse_id">
+              <mat-option *ngFor="let bWarehouseCompany of listWarehouse"
+                [value]="bWarehouseCompany.bWarehouse.warehouse_id">
+                {{ bWarehouseCompany.bWarehouse.warehouse_description }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="entryProductForm.form.controls['warehouse_id'].hasError('required')">
+              Almacén de entrada es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-select placeholder="Seleccione Proveedor" formControlName="provider_client_id">
+              <mat-option *ngFor="let bProvide_Client of listProvider" [value]="bProvide_Client.provider_client_id">
+                {{ bProvide_Client.provider_client_name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="entryProductForm.form.controls['provider_client_id'].hasError('required')">
+              Proveedor es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <button mat-button type="button" (click)="onLoadSearchProduct()">
+            + Agregar Productos
+          </button>
+        </div>
+      </div>
+      <!-- ================== -->
+      <!-- TABLA DE PRODUCTOS -->
+      <!-- ================== -->
+      <div class="row">
+        <div class="col">
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="(listData$ | async)" matSort>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="PRODUCTO">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>PRODUCTO</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.bProduct.product_name}}</mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="STOCK DE ENTRAGA">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>STOCK DE INGRESO</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.itentry_product_stock_entry}}</mat-cell>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="STOCK MINIMO">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>STOCK MINIMO</mat-header-cell>
+                <mat-cell *matCellDef="let row">{{row.itentry_product_min}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="SELECCIONE">
+                <mat-header-cell *matHeaderCellDef>SELECCIONE</mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  <button type="button" mat-icon-button (click)="update(row);">
+                    <mat-icon>launch</mat-icon>
+                  </button>
+                  <button type="button" mat-icon-button (click)="remover(row);">
+                    <mat-icon>delete_outline</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+            <!-- ================== -->
+            <!-- FIN TABLA PRODUCTO -->
+            <!-- ================== -->
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit"
+        [disabled]="entryProductForm.form.invalid">Registrar</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

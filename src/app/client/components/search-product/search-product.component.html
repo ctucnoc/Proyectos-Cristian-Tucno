@@ -1,0 +1,89 @@
+<mat-toolbar>
+    <span>Busqueda Avanzada</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="itentryProductForm.form" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="hidden" formControlName="product_id">
+                        <input type="hidden" formControlName="entre_Product_id">
+                        <input matInput placeholder="Producto" formControlName="itentre_product_name"
+                            [matAutocomplete]="auto" (keyup)="onSearchCompany()">
+                        <button type="button" mat-button matSuffix mat-icon-button aria-label="Clear" (click)="onClear()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let dato of datos" (click)=onSelect(dato)>
+                                {{dato.product_name}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-error
+                            *ngIf="itentryProductForm.form.controls['itentre_product_name'].hasError('required')">
+                            Ingrese un producto <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Ingrese lote del producto"
+                            formControlName="itentre_product_number_lot">
+                        <mat-error
+                            *ngIf="itentryProductForm.form.controls['itentre_product_number_lot'].hasError('required')">
+                            Ingrese lote <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input [matDatepicker]="picker" matInput placeholder="Ingrese fecha de Vencimiento"
+                            formControlName="itentry_product_date_expiration">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error
+                            *ngIf="itentryProductForm.form.controls['itentry_product_date_expiration'].hasError('required')">
+                            Ingrese fecha vencimiento <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Stock de Ingreso"
+                            formControlName="itentry_product_quantity_entre">
+                        <mat-error
+                            *ngIf="itentryProductForm.form.controls['itentry_product_quantity_entre'].hasError('required')">
+                            Cantidad de ingreso <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="full-width">
+                        <input type="number" matInput placeholder="Stock minimo"
+                            formControlName="itentry_product_stock_min">
+                        <mat-error
+                            *ngIf="itentryProductForm.form.controls['itentry_product_stock_min'].hasError('required')">
+                            Stock Minimo <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit"
+                [disabled]="itentryProductForm.form.invalid">Submit</button>
+        </mat-card-actions>
+    </mat-card>
+</form>

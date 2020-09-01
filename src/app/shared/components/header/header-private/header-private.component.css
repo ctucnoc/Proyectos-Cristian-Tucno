@@ -1,0 +1,11 @@
+.sidenav-container {
+    height: 96%;
+  }
+  
+  .side {
+    width: 18%;
+  }
+
+  ul > li{
+    display: inline;
+  }

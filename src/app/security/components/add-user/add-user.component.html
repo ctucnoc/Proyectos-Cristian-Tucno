@@ -1,0 +1,40 @@
+<mat-toolbar>
+    <span>{{userCreationForm.form.controls['user_id'].value?"Modificar Usuario":"Registrar Nueva Usuario"}}</span>
+    <span class="fill-remaining-space"></span>
+    <button class="btn-dialog-close" mat-stroked-button (click)="onClose()" tabIndex="-1">
+        <mat-icon>clear</mat-icon>
+    </button>
+</mat-toolbar>
+<form [formGroup]="userCreationForm.form" class="normal-form" (submit)="onCreate()">
+    <mat-grid-list cols="1" rowHeight="250px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <mat-form-field>
+                    <input formControlName="user_id" matInput placeholder="Usuario*">
+                    <mat-error *ngIf="userCreationForm.form.controls['user_id'].hasError('required')">El campo es obligatorio</mat-error>
+                    <mat-error *ngIf="userCreationForm.form.controls['user_id'].hasError('notAvailable')">El usuario ya</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="user_name" matInput placeholder="Nombre*">
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tipo de Usuario</mat-label>
+                    <select matNativeControl formControlName="user_privilege">
+                        <option value="ADMINISTRADOR TOTAL">ADMINISTRADOR TOTAL</option>
+                        <option value="USUARIO">USUARIO</option>
+                        <option value="AUDITOR">AUDITOR</option>
+                    </select>
+                    <mat-error>El campo es obligatorio</mat-error>
+                </mat-form-field>
+
+                <div class="button-row" style="width: 100%;">
+                    <button style="width: 46%;" mat-raised-button color="primary" type="submit"
+                        [disabled]="userCreationForm.form.invalid">Guardar</button>
+                    <button type="button" style="width: 46%;" mat-raised-button color="warn"
+                        [disabled]="userCreationForm.form.invalid">Limpiar</button>
+                </div>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

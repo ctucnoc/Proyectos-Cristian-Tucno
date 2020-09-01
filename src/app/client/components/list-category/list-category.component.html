@@ -1,0 +1,38 @@
+<div class="search-div">
+  <button mat-raised-button (click)="onCreate()">
+    <mat-icon>add</mat-icon>Nuevo
+  </button>
+  <mat-form-field class="search-form-field">
+    <input matInput [(ngModel)]="searchKey" placeholder="Buscar" autocomplete="off" (keyup)="applyFilter()">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="listData" matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="ID_CATEGORIA">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>ID_CATEGORIA</mat-header-cell>
+      <mat-cell *matCellDef="let bcategory">{{bcategory.category_id}}</mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="CATEGORIA">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>CATEGORIA</mat-header-cell>
+      <mat-cell *matCellDef="let bcategory">{{bcategory.category_description}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="SELECCIONE">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button (click)="onDelete(row.category_id)"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>

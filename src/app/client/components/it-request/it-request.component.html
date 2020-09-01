@@ -1,0 +1,50 @@
+<mat-card class="shipping-card">
+    <mat-card-header>
+        <mat-card-title>DETALLE DE LA SOLICITUD</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- ================== -->
+        <!-- TABLA DE PRODUCTOS -->
+        <!-- ================== -->
+        <div class="row">
+            <div class="col">
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="bRequest.list" matSort>
+
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="CÓDIGO DETALLE SOLICITUD">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>CÓDIGO DETALLE SOLICITUD
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.itrequest_id}}</mat-cell>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="PRODUCTO">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>PRODUCTO</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.product_name}}
+                            </mat-cell>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="CANTIDAD SOLICITADA">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>CANTIDAD SOLICITADA</mat-header-cell>
+                            <mat-cell *matCellDef="let row">{{row.itrequest_quantity}}</mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons>
+                    </mat-paginator>
+                    <!-- ================== -->
+                    <!-- FIN TABLA PRODUCTO -->
+                    <!-- ================== -->
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="onupdate(id)">Confirmar</button>
+        <button mat-flat-button color="primary">Rechazar</button>
+    </mat-card-actions>
+</mat-card>
