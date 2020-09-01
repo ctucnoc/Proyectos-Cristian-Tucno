@@ -29,4 +29,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 =======
 # Proyectos-Cristian-Tucno
 proyectos desarrollados por cristian tucno conde
->>>>>>> b91b7f532d359e8cf2a6a230411ab3f5e343fca4
+
